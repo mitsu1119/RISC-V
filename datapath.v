@@ -2,7 +2,7 @@
 `include "alu.v"
 `include "immgen.v"
 
-module DataPath(clk, reset, Instruction, RegWrite, MemtoReg, ALUSrc, ALUOp, ALUResult, Read_data_2, Zero, pc, PCSrc, Read_data);
+module DataPath(clk, reset, Instruction, RegWrite, MemtoReg, ALUSrc, ALUCo, ALUResult, Read_data_2, Zero, pc, PCSrc, Read_data);
 	input clk, reset, PCSrc;
 	input [31:0] Instruction;
 	input [63:0] Read_data;
@@ -13,7 +13,7 @@ module DataPath(clk, reset, Instruction, RegWrite, MemtoReg, ALUSrc, ALUOp, ALUR
 	wire [63:0] Read_data_1, Write_data, imm_or_reg_data;
 
 	input RegWrite, ALUSrc, MemtoReg;
-	input [3:0] ALUOp;
+	input [3:0] ALUCo;
 	output [63:0] ALUResult;
 	output Zero;
 
@@ -37,7 +37,7 @@ module DataPath(clk, reset, Instruction, RegWrite, MemtoReg, ALUSrc, ALUOp, ALUR
 
 	assign imm_or_reg_data = ALUSrc ? imm : Read_data_2;	
 
-	ALU alu(ALUOp, Read_data_1, imm_or_reg_data, ALUResult, Zero);
+	ALU alu(ALUCo, Read_data_1, imm_or_reg_data, ALUResult, Zero);
 
 	assign result = MemtoReg ? Read_data : ALUResult;
 
