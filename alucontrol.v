@@ -4,7 +4,7 @@ module ALUcontrol(ALUOp, funct3, funct7, ALUco);
 	input [6:0] funct7;
 	output reg [3:0] ALUco;
 
-	wire [10:0] funct = {funct3[2:0], funct7[6:0]};
+	wire [9:0] funct = {funct7[6:0], funct3[2:0]};
 
 	always @(*)
 		case (ALUOp)
